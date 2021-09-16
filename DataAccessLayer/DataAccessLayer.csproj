@@ -19,8 +19,6 @@
 
   <ItemGroup>
     <Folder Include="Context\" />
-    <Folder Include="Abstract\" />
-    <Folder Include="Repositories\" />
   </ItemGroup>
 
   <ItemGroup>
