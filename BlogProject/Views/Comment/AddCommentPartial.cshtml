@@ -2,14 +2,12 @@
 <div class="comment-top">
     <h4>Yorum Yap</h4>
     <div class="comment-bottom">
-        <form action="#" method="post">
-            <input class="form-control" type="text" name="Name" placeholder="Adınız" required="">
-            <input class="form-control" type="email" name="Email" placeholder="Mailiniz" required="">
+        <form action="/Comment/AddCommentPartial/" method="post">
+            <input class="form-control" type="text" name="CommentUserName" placeholder="Adınız Soyadınız" required="">
+            <input class="form-control" type="text" name="CommentTitle" placeholder="Konu" required="">
 
-            <input class="form-control" type="text" name="Subject" placeholder="Konu" required="">
-
-            <textarea class="form-control" name="Message" placeholder="Mesaj..." required=""></textarea>
-            <button type="submit" class="btn btn-primary submit">Gönder</button>
+            <textarea class="form-control" name="CommentContent" placeholder="Yorumunuz..." required=""></textarea>
+            <button type="submit" class="btn btn-primary submit">Yorum Yap</button>
         </form>
     </div>
 </div>

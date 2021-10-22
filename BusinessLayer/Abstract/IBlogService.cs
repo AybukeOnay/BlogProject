@@ -15,6 +15,7 @@ namespace BusinessLayer.Abstract
         List<Blog> GetList();
         Blog GetByID(int id);
         List<Blog> GetBlogListWithCategoryBL();
+        List<Blog> GetBlogListByWriter(int id);
         
     }
 }
