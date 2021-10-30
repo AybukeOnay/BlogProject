@@ -11,12 +11,8 @@ namespace DataAccessLayer.Abstract
 {
     public interface IBlogDal :IGenericDal<Blog>
     {
-        List<Blog> GetListWithCategory()
-        {
-            using(var c = new Context())
-            {
-                return c.Blogs.Include(x => x.Category).ToList();
-            }
-        }
+        List<Blog> GetListWithCategory();
+        List<Blog> GetListWithCategoryByWriter(int id);
+        
     }
 }
