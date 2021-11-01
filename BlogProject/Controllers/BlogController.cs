@@ -16,6 +16,7 @@ namespace BlogProject.Controllers
     [AllowAnonymous]
     public class BlogController : Controller
     {
+        CategoryManager cm = new CategoryManager(new EfCategoryRepository());
         BlogManager bm = new BlogManager(new EfBlogRepository());
         public IActionResult Index()
         {
@@ -37,8 +38,7 @@ namespace BlogProject.Controllers
         }
         [HttpGet]
         public IActionResult BlogAdd()
-        {
-            CategoryManager cm = new CategoryManager(new EfCategoryRepository());
+        {           
             List<SelectListItem> categoryValues = (from x in cm.GetList()
                                                    select new SelectListItem
                                                    {
@@ -75,6 +75,41 @@ namespace BlogProject.Controllers
             var blogValue = bm.TGetByID(id);
             bm.TDeleteBL(blogValue);
             return RedirectToAction("BlogListByWriter");
+        }
+        [HttpGet]
+        public IActionResult BlogEdit(int id)
+        {
+            List<SelectListItem> categoryValues = (from x in cm.GetList()
+                                                   select new SelectListItem
+                                                   {
+                                                       Text = x.CategoryName,
+                                                       Value = x.CategoryID.ToString()
+                                                   }).ToList();
+            ViewBag.cv = categoryValues;
+            return View();
+        }
+        [HttpPost]
+        public IActionResult BlogEdit(Blog cls_blog)
+        {
+            BlogValidator bv = new BlogValidator();
+            ValidationResult results = bv.Validate(cls_blog);
+            if (results.IsValid)
+            {
+                var date = bm.TGetByID(cls_blog.BlogID);
+                cls_blog.BlogStatus = true;
+                cls_blog.WriterID = 1;
+                cls_blog.BlogCreateDate = date.BlogCreateDate;
+                bm.TUpdateBL(cls_blog);
+                return RedirectToAction("BlogListByWriter");
+            }
+            else
+            {
+                foreach (var item in results.Errors)
+                {
+                    ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+                }
+            }
+            return View();
         }
     }
 }
